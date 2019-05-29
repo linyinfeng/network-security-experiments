@@ -1,0 +1,50 @@
+name:                caesar-cipher
+version:             0.0.0.1
+github:              "linyinfeng/network-security-experiments"
+license:             MIT
+author:              "Lin Yinfeng"
+maintainer:          "lin.yinfeng@outlook.com"
+copyright:           "2019 Lin Yinfeng"
+
+# extra-source-files:
+# - README.md
+# - ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/linyinfeng/network-security-experiments#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- optparse-applicative >= 0.14.3.0 && < 0.15
+- hspec >= 2.6.1 && < 2.8
+
+library:
+  source-dirs: src
+
+executables:
+  caesar-cipher-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - caesar-cipher
+
+tests:
+  caesar-cipher-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - caesar-cipher
