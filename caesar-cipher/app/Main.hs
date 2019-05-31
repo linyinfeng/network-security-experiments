@@ -1,36 +1,31 @@
 module Main where
 
-import CaesarCipher
+import           CaesarCipher
+import           Options.Applicative
+import           Data.Semigroup                 ( (<>) )
 
-import Options.Applicative
-import Data.Semigroup ((<>))
-
-data CipherOption = CipherOption {
-    shift :: Int,
-    decrypt :: Bool
-}
+data CipherOption = CipherOption { shift :: Int, decrypt :: Bool }
 
 cipherOption :: Parser CipherOption
-cipherOption = CipherOption 
-    <$> option auto (
-        long "shift" <>
-        short 's' <>
-        help "Shift steps" <>
-        metavar "NUMBER"
-    )
-    <*> switch (
-        long "decrypt" <>
-        short 'd' <>
-        help "Decrypt with shift number"
-    )
+cipherOption =
+    CipherOption
+        <$> option
+                auto
+                (long "shift" <> short 's' <> help "Shift steps" <> metavar
+                    "NUMBER"
+                )
+        <*> switch
+                (long "decrypt" <> short 'd' <> help "Decrypt with shift number"
+                )
 
 main :: IO ()
 main = cipherMain =<< execParser opts
   where
-    opts = info (cipherOption <**> helper)
-        (fullDesc <>
-        progDesc "Print a greeting for TARGET" <>
-        header "caesar-chiper - Just a caesar-cipher")
+    opts = info
+        (cipherOption <**> helper)
+        (fullDesc <> progDesc "Caesar cipher" <> header
+            "caesar-chiper - Just caesar cipher"
+        )
 
 cipherMain :: CipherOption -> IO ()
 cipherMain (CipherOption s d) = do
