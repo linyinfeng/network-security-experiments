@@ -1,2 +1,5 @@
 /.vscode
-target
+*~
+
+.stack-work/
+*.cabal
