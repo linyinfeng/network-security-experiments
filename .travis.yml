@@ -9,13 +9,13 @@ cache:
 
 before_install:
   # Install racket
-  - sudo add-apt-repository ppa:plt/racket
+  - sudo add-apt-repository ppa:plt/racket -y
   - sudo apt-get update
-  - sudo apt install racket
+  - sudo apt install racket -y
   # Install stack
   - curl -sSL https://get.haskellstack.org/ | sh
   # Install shellcheck
-  - sudo apt install shellcheck
+  - sudo apt install shellcheck -y
 
 script:
   # Test caesar cipher
