@@ -2,5 +2,5 @@
 
 while true
 do
-killall -u $1
+killall -u "$1"
 done
