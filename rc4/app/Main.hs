@@ -12,7 +12,6 @@ import           Data.Word
 import qualified Data.ByteString.Lazy          as BL
 import qualified Data.ByteString.Lazy.UTF8     as BLU
 import           Control.Monad.State.Lazy
-import           Debug.Trace
 
 data CipherOption = CipherOption {
     keyString :: String,
