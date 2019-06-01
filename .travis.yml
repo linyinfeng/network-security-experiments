@@ -1,0 +1,31 @@
+language: c
+compiler: clang
+
+sudo: true
+
+cache:
+  directories:
+  - $HOME/.stack
+
+before_install:
+  # Install racket
+  - sudo add-apt-repository ppa:plt/racket
+  - sudo apt-get update
+  - sudo apt install racket
+  # Install stack
+  - curl -sSL https://get.haskellstack.org/ | sh
+  # Install shellcheck
+  - sudo apt install shellcheck
+
+script:
+  # Test caesar cipher
+  - (cd caesar-cipher; stack --no-terminal test)
+  # Test rc4
+  - (cd rc4; stack --no-terminal test)
+  # Test quine
+  - stack runhaskell quine/quine.hs | cmp - quine/quine.hs
+  - racket quine/quine.rkt | cmp - quine/quine.rkt
+  # Test fork bomb
+  - shellcheck fork-bomb/fork-bomb.sh
+  - $CC fork-bomb/fork-bomb.c
+  - shellcheck fork-bomb/defuse.sh
