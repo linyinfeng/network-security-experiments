@@ -1,0 +1,31 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/arch"
+
+  # Update system
+  config.vm.provision "shell", inline: <<-SHELL
+    pacman -Sy --noconfirm reflector
+    reflector --verbose --country china --sort rate --save /etc/pacman.d/mirrorlist
+    pacman -Syu --noconfirm
+  SHELL
+
+  # Install snort
+  config.vm.provision "shell", inline: <<-SHELL
+    pacman -Syu base-devel libdnet luajit --noconfirm
+    mkdir -p /root/snort-build
+    cd /root/snort-build
+    DAQ_VERSION=2.0.6
+    SNORT_VERSION=2.9.13
+    wget https://www.snort.org/downloads/snort/daq-$DAQ_VERSION.tar.gz
+    wget https://www.snort.org/downloads/snort/snort-$SNORT_VERSION.tar.gz
+
+    tar xvzf daq-$DAQ_VERSION.tar.gz
+    cd daq-$DAQ_VERSION
+    ./configure && make && sudo make install
+    cd ..
+    
+    tar xvzf snort-$SNORT_VERSION.tar.gz
+    cd snort-$SNORT_VERSION
+    ./configure CPPFLAGS="-I/usr/include/tirpc" --enable-sourcefire && make && sudo make install
+    cd ..
+  SHELL
+end
