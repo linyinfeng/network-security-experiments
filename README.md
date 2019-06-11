@@ -10,7 +10,7 @@ Several experiment projects for a network security course of BUPT.
 - [x] Simple RC4 cipher implementation in Haskell
 - [x] Fork bomb in C and Shell and a defuse script
 - [x] Quine program in Haskell and Racket
-- [ ] Snort playground in Vagrant
+- [x] Snort playground in Vagrant
 - [x] Buffer overflow exploit example
 
 ## License
