@@ -5,3 +5,7 @@
 *.cabal
 
 .vagrant
+
+# C compile output
+a.out
+*.o
